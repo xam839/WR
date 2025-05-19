@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy a Bike – Westarider</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- PAGE-SPECIFIC OVERRIDES -->
+  <style>
+    /* make one bike per row, full-width cards */
+    .bikes-grid {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 1rem;
+    }
+    .bike-card {
+      width: 100%;
+    }
+
+    /* append “/hr” to every price */
+    .bike-card .price::after {
+      content: " /day";
+      font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <div class="navbar-brand ml-auto">
+        <img
+          src="https://i.ibb.co/YF6xF8M5/image-2025-05-03-171017704-removebg-preview.png"
+          alt="Westarider Logo"
+        />
+      </div>
+    </div>
+  </nav>
+
+  <div class="buy-container container mt-3">
+    <!-- Search + Toggle Filters -->
+    <div class="d-flex align-items-center mb-2">
+      <div class="search-bar flex-grow-1 position-relative">
+        <input type="search" id="bike-search" placeholder="Search bikes…" />
+        <i class="fas fa-search"></i>
+      </div>
+      <button class="btn filter-btn ml-2" id="toggle-filters" aria-label="Filter">
+        <i class="fas fa-sliders-h"></i>
+      </button>
+    </div>
+
+    <!-- Filter Panel -->
+    <div
+      class="filter-panel bg-white shadow-sm rounded mb-3 collapsed"
+      id="filter-panel"
+    >
+      <!-- Brand dropdown -->
+      <div class="filter-group">
+        <h6 style="margin-top: 2% !important;">Brand</h6>
+        <select id="brand-filter" class="form-control form-control-sm">
+          <option value="all">All Brands</option>
+          <option>Yamaha</option>
+          <option>Honda</option>
+          <option>Suzuki</option>
+        </select>
+      </div>
+      <!-- Price range -->
+      <div class="filter-group mt-3">
+        <h6>Price Range (/day)</h6>
+        <div class="d-flex gap-2">
+          <input
+            type="number"
+            id="price-min"
+            class="form-control form-control-sm"
+            placeholder="Min"
+          />
+          <input
+            type="number"
+            id="price-max"
+            class="form-control form-control-sm"
+            placeholder="Max"
+          />
+        </div>
+      </div>
+      <!-- Category chips -->
+      <div class="filter-group mt-3">
+        <h6>Category</h6>
+        <div class="filter-options d-flex flex-wrap gap-2">
+          <button class="filter-chip active" data-value="all">All</button>
+          <button class="filter-chip" data-value="Sport">Sport</button>
+          <button class="filter-chip" data-value="Cruiser">Cruiser</button>
+          <button class="filter-chip" data-value="Adventure">Adventure</button>
+          <button class="filter-chip" data-value="Off-road">Off-road</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result count -->
+    <div class="text-right mb-2">
+      <small id="result-count">0 bikes found</small>
+    </div>
+
+    <!-- Bikes Grid (1-per-row) -->
+<div class="bikes-grid">
+  <!-- Yamaha MT-07 -->
+  <div
+    class="bike-card available"
+    data-brand="Yamaha"
+    data-price="17599"
+    data-category="Sport"
+  >
+    <a href="rdetails.html">
+      <img
+        src="https://global-fs.webike-cdn.net/moto_img/cg/12/11321/L_m3j9d2nls0yf45bvxcutpr1qge.jpg"
+        alt="Yamaha MT-07"
+        class="img-fluid"
+      />
+    </a>
+    <h5>Yamaha MT-07</h5>
+    <p class="price">250 SAR</p>
+    <a
+      href="rdetails.html"
+      class="btn btn-sm btn-outline-primary details-btn"
+      >Details</a
+    >
+  </div>
+
+  <!-- Honda CB500F -->
+  <div
+    class="bike-card available"
+    data-brand="Honda"
+    data-price="43599"
+    data-category="Sport"
+  >
+    <a href="rdetails.html">
+      <img
+        src="https://cdn.dealerspike.com/imglib/v1/800x600/imglib/trimsdb/20199151-10088701-124525851.jpg"
+        alt="Honda CB500F"
+        class="img-fluid"
+      />
+    </a>
+    <h5>Honda CB500F</h5>
+    <p class="price">320 SAR</p>
+    <a
+      href="rdetails.html"
+      class="btn btn-sm btn-outline-primary details-btn"
+      >Details</a
+    >
+  </div>
+
+  <!-- Suzuki GSX250R -->
+  <div
+    class="bike-card available"
+    data-brand="Suzuki"
+    data-price="22599"
+    data-category="Sport"
+  >
+    <a href="rdetails.html">
+      <img
+        src="https://suzukicycles.com/-/media/project/cycles/images/products/motorcycles/gsx250r/2023/gsx250ra_m3_bd7_diagonal_2400x1600.png"
+        alt="Suzuki GSX250R"
+        class="img-fluid"
+      />
+    </a>
+    <h5>Suzuki GSX250R</h5>
+    <p class="price">440 SAR</p>
+    <a
+      href="rdetails.html"
+      class="btn btn-sm btn-outline-primary details-btn"
+      >Details</a
+    >
+  </div>
+
+  <!-- Suzuki V-Strom 650 -->
+  <div
+    class="bike-card available"
+    data-brand="Suzuki"
+    data-price="20599"
+    data-category="Sport"
+  >
+    <a href="rdetails.html">
+      <img
+        src="https://www.suzuki.ca/wp-content/uploads/DL650AM4_YVB_Right-scaled.jpg"
+        alt="Suzuki V-Strom 650"
+        class="img-fluid"
+      />
+    </a>
+    <h5>Suzuki V-Strom 650</h5>
+    <p class="price">230 SAR</p>
+    <a
+      href="rdetails.html"
+      class="btn btn-sm btn-outline-primary details-btn"
+      >Details</a
+    >
+  </div>
+</div>
+
+  </div>
+
+<!-- Bottom navigation -->
+<nav class="bottom-nav">
+  <a href="store.html" class="nav-item store" aria-label="Store">
+    <i class="fas fa-shopping-bag"></i>
+  </a>
+  <a href="index.html" class="nav-item home" aria-label="Home">
+    <i class="fas fa-home"></i>
+  </a>
+  <a href="user.html" class="nav-item user" aria-label="Profile">
+    <i class="fas fa-user"></i>
+  </a>
+</nav>
+
+  <script src="buy.js"></script>
+</body>
+</html>

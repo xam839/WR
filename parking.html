@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parking Spots – Westarider</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Page-specific overrides -->
+  <style>
+    .parking-section h4 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .parking-card {
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+    .parking-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .parking-card .card-img-top {
+      object-fit: cover;
+      width: 100%;
+      height: 200px;
+    }
+    .parking-card .badge {
+      background-color: #f5be30;
+      color: #333;
+      font-weight: 500;
+      margin: 0.2rem;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #28a745;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar (unchanged) -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <div class="navbar-brand ml-auto">
+        <img
+          src="https://i.ibb.co/YF6xF8M5/image-2025-05-03-171017704-removebg-preview.png"
+          alt="شعار"
+        />
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="container parking-section mt-4">
+    <h4 class="text-left">Available Parking Spots</h4>
+    <hr>
+
+    <!-- Clickable Card -->
+    <div
+      class="card parking-card mb-4"
+      onclick="window.location.href='pdetails.html'"
+      role="button"
+      tabindex="0"
+      onkeypress="if(event.key==='Enter'){window.location.href='pdetails.html';}"
+    >
+      <img
+        src="https://www.webbikeworld.com/wp-content/uploads/2017/07/parking-800x588.jpg"
+        class="card-img-top"
+        alt="Premium Covered Parking"
+      />
+      <div class="card-body text-left">
+        <h5 class="card-title">Premium Covered Parking</h5>
+        <p class="text-muted mb-3">
+          <i class="fa fa-map-marker-alt"></i> Hafr Al-batin
+        </p>
+        <div class="mb-3">
+          <span class="badge badge-pill">Bike Cover</span>
+          <span class="badge badge-pill">Cleaning</span>
+          <span class="badge badge-pill">Pre-departure Checkup</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <h6 class="mb-0">15/day  | 400/month </h6>
+          <div class="d-flex align-items-center">
+            <small class="text-muted">12 of 25 spots available</small>
+            <span class="status-dot ml-2"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<!-- Bottom navigation -->
+<nav class="bottom-nav">
+  <a href="store.html" class="nav-item store" aria-label="Store">
+    <i class="fas fa-shopping-bag"></i>
+  </a>
+  <a href="index.html" class="nav-item home" aria-label="Home">
+    <i class="fas fa-home"></i>
+  </a>
+  <a href="user.html" class="nav-item user" aria-label="Profile">
+    <i class="fas fa-user"></i>
+  </a>
+</nav>
+
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>

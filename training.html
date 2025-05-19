@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rider Training – Westarider</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --accent: #f5be30;
+      --text-dark: #333;
+      --bg-light: #fafafa;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      padding-bottom: 56px; /* bottom-nav height */
+    }
+    /* Top Navbar */
+    .navbar {
+      background: #f5be30;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 0.5rem 1rem;
+    }
+    .navbar-brand { margin-left: auto; }
+    .navbar-brand img { height: 36px; }
+
+    /* Wizard Container */
+    .training-container {
+      max-width: 500px;
+      margin: 1rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Stepper */
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      list-style: none;
+      padding: 0;
+    }
+    .stepper li {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .stepper li:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;                 /* halfway down the li */
+      transform: translateY(-700%); /* shift up half the line's thickness (and circle height) */
+      left: 50%;                /* start from center of this bubble */
+      width: 100%;              /* span to the next bubble */
+      height: 2px;
+      background: #ddd;
+      z-index: -1;              /* behind the circles */
+    }
+    .stepper li.active {
+      color: var(--accent);
+    }
+    .stepper li .circle {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      border-radius: 50%;
+      background: #ddd;
+      margin-bottom: 0.25rem;
+    }
+    .stepper li.active .circle {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Steps */
+    .step { display: none; }
+    .step.active { display: block; }
+
+    /* Training Type Cards */
+    .types-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .type-card {
+      flex: 1 1 calc(50% - 1rem);
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      text-align: center;
+    }
+    @media (max-width: 400px) {
+      .type-card { flex: 1 1 100%; }
+    }
+    .type-card.selected,
+    .type-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border: 2px solid var(--accent);
+    }
+    .type-card h5 { margin-bottom: .5rem; font-weight:600; }
+    .type-card ul {
+      list-style: none; padding: 0; margin:0; font-size:.85rem; text-align:left;
+    }
+
+    /* Trainer Selection */
+    .trainer-list {
+      display: flex;
+      justify-content: center; 
+      overflow-x: auto;
+      gap: 1rem;
+      padding-bottom: .5rem;
+    }
+    .trainer-card {
+      flex: 0 0 70px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .trainer-card img {
+      width: 70px; height:70px;
+      border-radius:50%;
+      border:2px solid transparent;
+      transition:border .2s;
+    }
+    .trainer-card.selected img {
+      border-color: var(--accent);
+    }
+    .trainer-card p {
+      margin-top:.5rem; font-size:.85rem;
+    }
+
+    /* Form Controls */
+    .form-group label { font-weight:600; }
+    .wizard-nav {
+      display:flex;
+      justify-content:space-between;
+      margin:1rem 0;
+    }
+    .wizard-nav button {
+      flex:1;
+      margin:0 .25rem;
+      padding:.6rem;
+      border:none;
+      border-radius:6px;
+      font-size:1rem;
+      color:#fff;
+      background: var(--accent);
+      transition:background .2s;
+    }
+    .wizard-nav button:disabled {
+      background:#ccc;
+      cursor:not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar (unchanged) -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <div class="navbar-brand ml-auto">
+        <img
+          src="https://i.ibb.co/YF6xF8M5/image-2025-05-03-171017704-removebg-preview.png"
+          alt="شعار"
+        />
+      </div>
+    </div>
+  </nav>
+
+
+  <main class="training-container">
+    <!-- Stepper -->
+    <ul class="stepper">
+      <li class="active"><span class="circle">1</span><br>Type</li>
+      <li><span class="circle">2</span><br>Trainer</li>
+      <li><span class="circle">3</span><br>Schedule</li>
+    </ul>
+
+    <!-- Step 1: Choose Type -->
+    <div id="step1" class="step active">
+      <div class="types-grid">
+        <div class="type-card" data-type="Beginner">
+          <h5>Beginner</h5>
+          <ul>
+            <li>Learning the basics</li>
+            <li>Theoretical + practical</li>
+          </ul>
+        </div>
+        <div class="type-card" data-type="Intermediate">
+          <h5>Intermediate</h5>
+          <ul>
+            <li>Curve handling</li>
+            <li>Maneuvers & control</li>
+          </ul>
+        </div>
+        <div class="type-card" data-type="Advanced">
+          <h5>Advanced</h5>
+          <ul>
+            <li>Track riding</li>
+            <li>Off-road training</li>
+            <li>Stunt skills</li>
+          </ul>
+        </div>
+      </div>
+      <div class="wizard-nav">
+        <button id="next1" disabled>Next</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Select Trainer -->
+    <div id="step2" class="step">
+      <h6>Select Your Trainer</h6>
+      <div class="trainer-list">
+        <div class="trainer-card" data-trainer="Moin">
+          <img src="https://i.pravatar.cc/70?img=1" alt="Moin"/>
+          <p>Moin</p>
+        </div>
+        <div class="trainer-card" data-trainer="Mugren">
+          <img src="https://i.pravatar.cc/70?img=2" alt="Mugren"/>
+          <p>Mugren</p>
+        </div>
+        <div class="trainer-card" data-trainer="Salman">
+          <img src="https://i.pravatar.cc/70?img=3" alt="Salman"/>
+          <p>Salman</p>
+        </div>
+      </div>
+      <div class="wizard-nav">
+        <button id="back2">Back</button>
+        <button id="next2" disabled>Next</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Review & Confirm -->
+<div id="step3" class="step">
+  <h6>Review &amp; Confirm</h6>
+  <p>Training Type: <strong><span id="summaryType"></span></strong></p>
+  <p>Trainer: <strong><span id="summaryTrainer"></span></strong></p>
+
+  <!-- inline confirmation message -->
+  <div id="bookingMessage" class="alert alert-success mt-3" style="display: none;">
+    ✅ Trainer will contact you soon!
+  </div>
+
+  <div class="wizard-nav">
+    <button id="back3" class="btn-back">Back</button>
+    <button id="bookBtn" class="btn-next">Confirm Booking</button>
+  </div>
+</div>
+
+
+<!-- Bottom navigation -->
+<nav class="bottom-nav">
+  <a href="store.html" class="nav-item store" aria-label="Store">
+    <i class="fas fa-shopping-bag"></i>
+  </a>
+  <a href="index.html" class="nav-item home" aria-label="Home">
+    <i class="fas fa-home"></i>
+  </a>
+  <a href="user.html" class="nav-item user" aria-label="Profile">
+    <i class="fas fa-user"></i>
+  </a>
+</nav>
+
+<script>
+  // Stepper & Wizard Logic
+  let trainingType = "", trainer = "";
+  const stepper = document.querySelectorAll('.stepper li');
+  const steps = [
+    document.getElementById('step1'),
+    document.getElementById('step2'),
+    document.getElementById('step3')
+  ];
+
+  // Step 1: choose type
+  document.querySelectorAll('.type-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      trainingType = card.dataset.type;
+      document.getElementById('next1').disabled = false;
+    });
+  });
+  document.getElementById('next1').addEventListener('click', () => goToStep(2));
+
+  // Step 2: select trainer
+  document.querySelectorAll('.trainer-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.trainer-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      trainer = card.dataset.trainer;
+      document.getElementById('next2').disabled = false;
+    });
+  });
+  document.getElementById('back2').addEventListener('click', () => goToStep(1));
+  document.getElementById('next2').addEventListener('click', () => goToStep(3));
+
+  // Step 3: confirm booking
+  document.getElementById('back3').addEventListener('click', () => goToStep(2));
+  document.getElementById('bookBtn').addEventListener('click', () => {
+    // Show in-page confirmation message
+    document.getElementById('bookingMessage').style.display = 'block';
+    // Disable the confirm button to prevent repeats
+    document.getElementById('bookBtn').disabled = true;
+  });
+
+  function goToStep(n) {
+    // Activate the correct step and stepper bullet
+    steps.forEach((stepEl, i) => stepEl.classList.toggle('active', i === n - 1));
+    stepper.forEach((li, i) => li.classList.toggle('active', i === n - 1));
+
+    // When entering Step 3, populate the summary fields and hide any old message
+    if (n === 3) {
+      document.getElementById('summaryType').textContent = trainingType;
+      document.getElementById('summaryTrainer').textContent = trainer;
+      document.getElementById('bookingMessage').style.display = 'none';
+    }
+  }
+</script>
+
+
+
+</body>
+</html>

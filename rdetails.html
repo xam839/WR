@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bike Details – Westarider</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    :root {
+      --accent: #f5be30;
+      --text-dark: #333;
+      --bg-light: #fafafa;
+      --nav-height: 56px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-light);
+      font-family: "Segoe UI", sans-serif;
+      color: var(--text-dark);
+      padding-bottom: var(--nav-height);
+    }
+
+    /* Top bar */
+    .navbar {
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 0.5rem 1rem;
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      padding: 0;
+    }
+    .navbar-brand img {
+      height: 36px;
+    }
+
+    /* Detail card container */
+    .details-container {
+      position: relative;
+      max-width: 600px;
+      margin: 1rem auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    /* Unavailable overlay */
+    .unavailable-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      z-index: 2;
+    }
+    .details-container.unavailable .unavailable-overlay {
+      display: flex;
+    }
+
+    /* Hero image */
+    .detail-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* Bike info */
+    .detail-info {
+      padding: 1rem 1.5rem;
+    }
+    .detail-info h2 {
+      margin-bottom: 0.75rem;
+      font-size: 1.75rem;
+      text-align: center;
+      color: var(--text-dark);
+    }
+    .detail-info ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    .detail-info li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+    }
+    .detail-info li strong {
+      width: 140px;
+      color: var(--text-dark);
+    }
+    .days-input {
+      max-width: 120px;
+      margin-left: 0.5rem;
+    }
+
+    /* Terms checkbox */
+    .terms {
+      margin: 1rem 0;
+    }
+
+    /* Action buttons */
+    .detail-actions {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 1.5rem;
+    }
+    .detail-actions .btn {
+      flex: 1;
+      max-width: 200px;
+      padding: 0.6rem 0;
+      font-size: 1rem;
+      border-radius: 6px;
+      transition: background 0.2s, transform 0.2s;
+      margin: 0 0.5rem;
+    }
+    .btn-rent {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+    }
+    .btn-rent:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Rent Modal Overlay */
+    #rentModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    #rentModal.show {
+      display: flex;
+    }
+    .rent-modal {
+      background: #fff;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+      padding: 1.5rem;
+      position: relative;
+    }
+    .rent-modal-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .rent-modal-content h4 {
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    .rent-modal-content label {
+      font-size: 0.95rem;
+    }
+    .rent-modal-content input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .rent-modal-content .btn {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 4px;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <nav class="navbar d-flex align-items-center">
+    <button class="back-btn" onclick="history.back()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="navbar-brand ml-auto">
+      <img
+        src="https://i.ibb.co/YF6xF8M5/image-2025-05-03-171017704-removebg-preview.png"
+        alt="Westarider Logo"
+      />
+    </div>
+  </nav>
+
+  <!-- Detail Card -->
+  <div class="details-container" id="detailsContainer" data-price="250" data-deposit="500">
+    <img
+      src="https://global-fs.webike-cdn.net/moto_img/cg/12/11321/L_m3j9d2nls0yf45bvxcutpr1qge.jpg"
+      alt="Bike Detail"
+      class="detail-img"
+    />
+    <div class="detail-info">
+      <h2>Yamaha MT-07</h2>
+      <ul>
+        <li><strong>Model:</strong> MT-07</li>
+        <li><strong>Brand:</strong> Yamaha</li>
+        <li><strong>Features:</strong> ABS, LCD Display</li>
+        <li><strong>Mileage:</strong> 35 km/l</li>
+        <li><strong>Rental Price:</strong> <span id="priceDisplay">250 SAR / Day SAR</span></li>
+        <li><strong>Number of Days:</strong>
+          <div class="input-group days-input">
+            <div class="input-group-prepend">
+              <button class="btn btn-outline-secondary btn-decrease" type="button">−</button>
+            </div>
+            <input type="text" id="daysInput" class="form-control text-center" value="1" readonly>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary btn-increase" type="button">+</button>
+            </div>
+          </div>
+        </li>
+        <li><strong>Security Deposit:</strong> <span id="depositDisplay">500 SAR</span></li>
+      </ul>
+      <div class="terms form-check">
+        <input class="form-check-input" type="checkbox" id="termsCheckbox">
+        <label class="form-check-label" for="termsCheckbox">I agree to the Terms & Conditions</label>
+      </div>
+      <div class="detail-actions">
+        <button class="btn btn-rent" id="rentBtn" disabled>Rent Me</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rent Modal -->
+  <div id="rentModal">
+    <div class="rent-modal">
+      <button class="rent-modal-close" id="modalClose">×</button>
+      <div class="rent-modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+<!-- Bottom navigation -->
+<nav class="bottom-nav">
+  <a href="store.html" class="nav-item store" aria-label="Store">
+    <i class="fas fa-shopping-bag"></i>
+  </a>
+  <a href="index.html" class="nav-item home" aria-label="Home">
+    <i class="fas fa-home"></i>
+  </a>
+  <a href="user.html" class="nav-item user" aria-label="Profile">
+    <i class="fas fa-user"></i>
+  </a>
+</nav>
+
+  <!-- Inline Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const rentBtn = document.getElementById('rentBtn');
+      const termsCheckbox = document.getElementById('termsCheckbox');
+      const daysInput = document.getElementById('daysInput');
+      const decreaseBtn = document.querySelector('.btn-decrease');
+      const increaseBtn = document.querySelector('.btn-increase');
+      const rentModal = document.getElementById('rentModal');
+      const modalContent = document.getElementById('modalContent');
+      const modalClose = document.getElementById('modalClose');
+      const detailsContainer = document.getElementById('detailsContainer');
+      const pricePerDay = parseInt(detailsContainer.dataset.price);
+      const deposit = parseInt(detailsContainer.dataset.deposit);
+
+      function updateRentBtnState() {
+        rentBtn.disabled = !termsCheckbox.checked;
+      }
+      termsCheckbox.addEventListener('change', updateRentBtnState);
+
+      decreaseBtn.addEventListener('click', () => {
+        let days = parseInt(daysInput.value);
+        if (days > 1) daysInput.value = days - 1;
+      });
+      increaseBtn.addEventListener('click', () => {
+        daysInput.value = parseInt(daysInput.value) + 1;
+      });
+
+      rentBtn.addEventListener('click', () => {
+        modalContent.innerHTML = `
+          <h4>Requirements</h4>
+          <label for="licenseInput">Driver's License Number</label>
+          <input type="text" id="licenseInput" placeholder="Enter license number">
+          <button id="proceedBtn" class="btn">Proceed</button>
+        `;
+        rentModal.classList.add('show');
+
+        document.getElementById('proceedBtn').addEventListener('click', () => {
+          const licenseInput = document.getElementById('licenseInput');
+          if (!licenseInput.value.trim()) {
+            alert('Please enter a valid driver\'s license.');
+            return;
+          }
+          const days = parseInt(daysInput.value) || 1;
+          modalContent.innerHTML = `
+            <h4>Payment</h4>
+            <p>Total for ${days} day(s): ${(pricePerDay * days).toLocaleString()} SAR</p>
+            <p>Security Deposit: ${deposit.toLocaleString()} SAR</p>
+            <button id="confirmBtn" class="btn">Confirm & Pay</button>
+          `;
+          document.getElementById('confirmBtn').addEventListener('click', () => {
+            detailsContainer.classList.add('unavailable');
+            rentModal.classList.remove('show');
+          });
+        });
+      });
+
+      modalClose.addEventListener('click', () => rentModal.classList.remove('show'));
+    });
+  </script>
+</body>
+</html>

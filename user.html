@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile – Westarider</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --accent: #f5be30;
+      --text-dark: #333;
+      --bg-light: #fafafa;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+    }
+    body {
+      margin: 0;
+      background: var(--bg-light);
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text-dark);
+      padding-bottom: 56px; /* bottom-nav */
+    }
+    .navbar {
+      background: #f5be30;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: .5rem 1rem;
+    }
+    .navbar-brand { margin-left: auto; }
+    .navbar-brand img { height: 36px; }
+
+    .profile-header {
+      background: #fff;
+      margin: 1rem;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--card-shadow);
+      text-align: center;
+    }
+    .profile-header img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: .5rem;
+      border: 3px solid var(--accent);
+    }
+    .profile-header h4 {
+      margin-bottom: .25rem;
+      font-weight: 600;
+    }
+    .profile-header p {
+      color: #666;
+      margin-bottom: .75rem;
+    }
+    .points-bar {
+      background: #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 8px;
+      margin: .5rem 0 0.75rem;
+    }
+    .points-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 62%; /* example: 620/1000 points */
+      transition: width .5s ease;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .75rem;
+      margin: 0 1rem 1rem;
+    }
+    .stat-card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px var(--card-shadow);
+      text-align: center;
+    }
+    .stat-card h5 {
+      margin-bottom: .25rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .stat-card p {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--accent);
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .75rem;
+      margin: 0 1rem 1rem;
+    }
+    .action-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px var(--card-shadow);
+      padding: .75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .action-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px var(--card-shadow);
+    }
+    .action-card i {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: .5rem;
+    }
+    .action-card p {
+      margin: 0;
+      font-size: .85rem;
+      color: #444;
+    }
+
+    .activity-list {
+      background: #fff;
+      margin: 0 1rem 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--card-shadow);
+      list-style: none;
+      padding: 0;
+    }
+    .activity-list li {
+      padding: .75rem 1rem;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+    }
+    .activity-list li:last-child { border-bottom: none; }
+    .activity-list i {
+      font-size: 1.25rem;
+      color: var(--accent);
+      margin-right: .75rem;
+    }
+    .activity-list .text {
+      flex: 1;
+    }
+    .activity-list .time {
+      color: #999;
+      font-size: .75rem;
+    }
+
+    .logout-btn {
+      display: block;
+      width: calc(100% - 2rem);
+      margin: 0 1rem 1.5rem;
+      padding: .75rem;
+      background: #e74c3c;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px var(--card-shadow);
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .logout-btn:hover { background: #c0392b; }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <div class="navbar-brand ml-auto">
+        <img src="https://i.ibb.co/YF6xF8M5/image-2025-05-03-171017704-removebg-preview.png" alt="Westarider Logo" />
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <img src="assets/azoz.jpg" alt="User Avatar" />
+      <h4>Abdulaziz Alqurni</h4>
+      <p>Gold Member</p>
+      <div>Points: 620 / 1000</div>
+      <div class="points-bar"><div class="points-fill"></div></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h5><i class="fas fa-motorcycle"></i> Rides</h5>
+        <p>24</p>
+      </div>
+      <div class="stat-card">
+        <h5><i class="fas fa-clock"></i> Hours</h5>
+        <p>120h</p>
+      </div>
+      <div class="stat-card">
+        <h5><i class="fas fa-dollar-sign"></i> Spent</h5>
+        <p>3,450</p>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="actions-grid">
+      <div class="action-card">
+        <i class="fas fa-user-edit"></i>
+        <p>Edit Profile</p>
+      </div>
+      <div class="action-card">
+        <i class="fas fa-credit-card"></i>
+        <p>Payment Methods</p>
+      </div>
+      <div class="action-card">
+        <i class="fas fa-history"></i>
+        <p>Rental History</p>
+      </div>
+      <div class="action-card">
+        <i class="fas fa-book"></i>
+        <p>My Bookings</p>
+      </div>
+      <div class="action-card">
+        <i class="fas fa-heart"></i>
+        <p>Favorites</p>
+      </div>
+      <div class="action-card">
+        <i class="fas fa-cog"></i>
+        <p>Settings</p>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <ul class="activity-list">
+      <li>
+        <i class="fas fa-motorcycle"></i>
+        <div class="text">You rented Yamaha MT-07</div>
+        <div class="time">May 16, 2025</div>
+      </li>
+      <li>
+        <i class="fas fa-map-pin"></i>
+        <div class="text">Parking reserved at Downtown</div>
+        <div class="time">May 14, 2025</div>
+      </li>
+      <li>
+        <i class="fas fa-chalkboard-teacher"></i>
+        <div class="text">Training booked: Intermediate w/ Mugren</div>
+        <div class="time">May 10, 2025</div>
+      </li>
+    </ul>
+
+    <!-- Logout -->
+    <a href="#" class="logout-btn">Logout</a>
+  </main>
+
+<!-- Bottom navigation -->
+<nav class="bottom-nav">
+  <a href="store.html" class="nav-item store" aria-label="Store">
+    <i class="fas fa-shopping-bag"></i>
+  </a>
+  <a href="index.html" class="nav-item home" aria-label="Home">
+    <i class="fas fa-home"></i>
+  </a>
+  <a href="user.html" class="nav-item user active" aria-label="Profile">
+    <i class="fas fa-user"></i>
+  </a>
+</nav>
+
+  <!-- Optional JS for interactivity -->
+  <script>
+    // Example: animate points bar
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.querySelector('.points-fill').style.width = '62%';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bike Details – Westarider</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    :root {
+      --accent: #f5be30;
+      --text-dark: #333;
+      --bg-light: #fafafa;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-light);
+      font-family: "Segoe UI", sans-serif;
+      color: var(--text-dark);
+      padding-bottom: var(--nav-height);
+    }
+
+    /* Top bar */
+    .navbar {
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 0.5rem 1rem;
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      padding: 0;
+    }
+    .navbar-brand img {
+      height: 36px;
+    }
+
+    /* Detail card container */
+    .details-container {
+      max-width: 600px;
+      margin: 1rem auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    /* Hero image */
+    .detail-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* Bike info */
+    .detail-info {
+      padding: 1rem 1.5rem;
+    }
+    .detail-info h2 {
+      margin-bottom: 0.75rem;
+      font-size: 1.75rem;
+      text-align: center;
+      color: var(--text-dark);
+    }
+    .detail-info ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    .detail-info li {
+      display: flex;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    .detail-info li strong {
+      width: 90px;
+      color: var(--text-dark);
+    }
+
+    /* Action buttons */
+    .detail-actions {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0 1.5rem 1.5rem;
+    }
+    .detail-actions .btn {
+      flex: 1;
+      padding: 0.6rem 0;
+      font-size: 1rem;
+      border-radius: 6px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .detail-actions .btn-primary {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+    }
+    .detail-actions .btn-primary:hover {
+      background: #e6b22c;
+      transform: translateY(-2px);
+    }
+    .detail-actions .btn-outline-primary {
+      border: 2px solid var(--accent);
+      color: var(--accent);
+    }
+    .detail-actions .btn-outline-primary:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <nav class="navbar d-flex align-items-center">
+    <button class="back-btn" onclick="history.back()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="navbar-brand ml-auto">
+      <img
+        src="https://i.ibb.co/YF6xF8M5/image-2025-05-03-171017704-removebg-preview.png"
+        alt="Westarider Logo"
+      />
+    </div>
+  </nav>
+
+  <!-- Detail Card -->
+  <div class="details-container">
+    <img
+      src="https://global-fs.webike-cdn.net/moto_img/cg/12/11321/L_m3j9d2nls0yf45bvxcutpr1qge.jpg"
+      alt="Bike Detail"
+      class="detail-img"
+    />
+    <div class="detail-info">
+      <h2>Yamaha MT-07</h2>
+      <ul>
+        <li><strong>Model:</strong> MT-07</li>
+        <li><strong>Brand:</strong> Yamaha</li>
+        <li><strong>Features:</strong> ABS, LCD Display</li>
+        <li><strong>Mileage:</strong> 35 km/l</li>
+        <li><strong>Price:</strong> 17,599 SAR</li>
+      </ul>
+      <div class="detail-actions">
+        <button class="btn btn-primary">Buy Now</button>
+        <button class="btn btn-outline-primary">Make an Offer</button>
+      </div>
+    </div>
+  </div>
+
+<!-- Bottom navigation -->
+<nav class="bottom-nav">
+  <a href="store.html" class="nav-item store" aria-label="Store">
+    <i class="fas fa-shopping-bag"></i>
+  </a>
+  <a href="index.html" class="nav-item home" aria-label="Home">
+    <i class="fas fa-home"></i>
+  </a>
+  <a href="user.html" class="nav-item user" aria-label="Profile">
+    <i class="fas fa-user"></i>
+  </a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Westarider Store</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navbar (same as index) -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a href="cart.html" class="nav-cart" aria-label="Cart">
+        <i class="fas fa-shopping-cart"></i>
+      </a>
+      <div class="navbar-brand ml-auto">
+        <img src="https://i.ibb.co/YF6xF8M5/image-2025-05-03-171017704-removebg-preview.png" alt="شعار" />
+      </div>
+    </div>
+  </nav>
+
+<!-- Store Content -->
+<div class="store-container container">
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="search" id="product-search" placeholder="Search for products …">
+    <i class="fas fa-search"></i>
+  </div>
+
+<!-- Category Tabs + Active Label -->
+<div class="category-tabs-container">
+  <div class="category-tabs scrollable">
+    <button class="tab active" data-category="Helmets">
+      <img src="assets/helmet.png" alt="Helmets">
+      <span>Helmets</span>
+    </button>
+    <button class="tab" data-category="Boots">
+      <img src="assets/boot.png" alt="Boots">
+      <span>Boots</span>
+    </button>
+    <button class="tab" data-category="Gloves">
+      <img src="assets/gloves.png" alt="Gloves">
+      <span>Gloves</span>
+    </button>
+    <button class="tab" data-category="Pants">
+      <img src="assets/pants.png" alt="Pants">
+      <span>Pants</span>
+    </button>
+    <button class="tab" data-category="Jackets">
+      <img src="assets/jacket.png" alt="Jackets">
+      <span>Jackets</span>
+    </button>
+  </div>
+  <div id="activeCategoryLabel" class="active-category-label">All</div>
+</div>
+
+
+
+  <!-- Products Grid -->
+  <div class="products-grid" id="products-grid">
+    <!-- Helmets -->
+    <div class="product-card" data-category="Helmets">
+      <img src="https://www.safe2ride.com.au/cdn/shop/files/LE1023010204_300x.jpg?v=1739899934" alt="LS2 MX700 Subverter Liner">
+      <h6>LS2 MX700 Subverter Liner</h6>
+      <p class="price">199 SAR</p>
+      <button class="add-cart">
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span>Add to Cart</span>
+      </button>
+    </div>
+    <div class="product-card" data-category="Helmets">
+      <img src="https://www.safe2ride.com.au/cdn/shop/files/LS2Z806702VIS11_300x.jpg?v=1743575588" alt="LS2 MX702 Sun Visor – Tinted">
+      <h6>LS2 MX702 Sun Visor – Tinted</h6>
+      <p class="price">49 SAR</p>
+      <button class="add-cart">
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span>Add to Cart</span>
+      </button>
+    </div>
+
+    <!-- Boots -->
+    <div class="product-card" data-category="Boots">
+      <img src="https://www.safe2ride.com.au/cdn/shop/files/LE3023050100_300x.jpg?v=1733207422" alt="Leatt 5.5 GPX Boot FlexLock Bar & Shims">
+      <h6>Leatt 5.5 GPX Boot FlexLock Bar & Shims</h6>
+      <p class="price">129 SAR</p>
+      <button class="add-cart">
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span>Add to Cart</span>
+      </button>
+    </div>
+    <div class="product-card" data-category="Boots">
+      <img src="https://www.safe2ride.com.au/cdn/shop/files/LE3024050280_540x.jpg?v=1733327324" alt="Leatt 5.5 Shin Plate Kit (Pair) – Royal">
+      <h6>Leatt 5.5 Shin Plate Kit (Pair) – Royal</h6>
+      <p class="price">89 SAR</p>
+      <button class="add-cart">
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span>Add to Cart</span>
+      </button>
+    </div>
+
+    <!-- Gloves -->
+    <div class="product-card" data-category="Gloves">
+      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE6023041102.JPG" alt="Leatt 2023 1.5 Gripr Glove – Royal">
+      <h6>Leatt 2023 1.5 Gripr Glove – Royal</h6>
+      <p class="price">39 SAR</p>
+      <button class="add-cart">
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span>Add to Cart</span>
+      </button>
+    </div>
+    <div class="product-card" data-category="Gloves">
+      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/OXFORD/OXGM2011013XL.JPG" alt="Leatt 1.5 Junior Glove – Black">
+      <h6>Leatt 1.5 Junior Glove – Black</h6>
+      <p class="price">35 SAR</p>
+      <button class="add-cart">
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span>Add to Cart</span>
+      </button>
+    </div>
+
+    <!-- Pants -->
+    <div class="product-card" data-category="Pants">
+      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/OXFORD/OXDM199101S34.JPG" alt="Oxford Original CE Armourlite Straight Jean">
+      <h6>Oxford Original CE Armourlite Straight Jean</h6>
+      <p class="price">149 SAR</p>
+      <button class="add-cart">
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span>Add to Cart</span>
+      </button>
+    </div>
+    <div class="product-card" data-category="Pants">
+      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024080230.JPG" alt="Leatt 2024 5.5 UltraWeld Jersey – Sundown">
+      <h6>Leatt 2024 5.5 UltraWeld Jersey – Sundown</h6>
+      <p class="price">119 SAR</p>
+      <button class="add-cart">
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span>Add to Cart</span>
+      </button>
+    </div>
+
+    <!-- Jackets -->
+    <div class="product-card" data-category="Jackets">
+      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024010141.JPG" alt="Leatt 7.5 ADV MultiTour Jacket – Royal">
+      <h6>Leatt 7.5 ADV MultiTour Jacket – Royal</h6>
+      <p class="price">199 SAR</p>
+      <button class="add-cart">
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span>Add to Cart</span>
+      </button>
+    </div>
+    <div class="product-card" data-category="Jackets">
+      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024010120.JPG" alt="Leatt 7.5 ADV MultiTour Jacket – Desert">
+      <h6>Leatt 7.5 ADV MultiTour Jacket – Desert</h6>
+      <p class="price">199 SAR</p>
+      <button class="add-cart">
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span>Add to Cart</span>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Bottom navigation -->
+<nav class="bottom-nav">
+  <a href="store.html" class="nav-item store active" aria-label="Store">
+    <i class="fas fa-shopping-bag"></i>
+  </a>
+  <a href="index.html" class="nav-item home" aria-label="Home">
+    <i class="fas fa-home"></i>
+  </a>
+  <a href="user.html" class="nav-item user" aria-label="Profile">
+    <i class="fas fa-user"></i>
+  </a>
+</nav>
+
+  <!-- Store JS -->
+  <script src="store.js"></script>
+</body>
+</html>

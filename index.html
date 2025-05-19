@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Westarider Club App</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Navbar-->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <div class="navbar-brand ml-auto">
+        <img
+          src="https://i.ibb.co/YF6xF8M5/image-2025-05-03-171017704-removebg-preview.png"
+          alt="شعار"
+        />
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Slider -->
+  <div class="hero-slider">
+    <div class="slides">
+      <div class="slide active">
+        <img src="assets/Heroimage1.png" alt="Hero Image 1" />
+      </div>
+      <div class="slide">
+        <img src="assets/Heroimage2.png" alt="Hero Image 2" />
+      </div>
+      <div class="slide">
+        <img src="assets/Heroimage3.png" alt="Hero Image 3" />
+      </div>
+    </div>
+    <div class="dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+  </div>
+
+  <!-- Sections Grid -->
+  <div class="sections-grid">
+    <a href="buy.html" class="section-card" data-section="buy">
+      <img src="assets/buy.svg" alt="Buy a bike" class="section-icon" />
+    </a>
+    <a href="rent.html" class="section-card" data-section="rent">
+      <img src="assets/rent.svg" alt="Rent a bike" class="section-icon" />
+    </a>
+    <a href="parking.html" class="section-card" data-section="parking">
+      <img src="assets/parking.svg" alt="Parking" class="section-icon" />
+    </a>
+    <a href="training.html" class="section-card" data-section="training">
+      <img src="assets/training.svg" alt="Training" class="section-icon" />
+    </a>
+  </div>
+
+<!-- Bottom navigation -->
+<nav class="bottom-nav">
+  <a href="store.html" class="nav-item store" aria-label="Store">
+    <i class="fas fa-shopping-bag"></i>
+  </a>
+  <a href="index.html" class="nav-item home active" aria-label="Home">
+    <i class="fas fa-home"></i>
+  </a>
+  <a href="user.html" class="nav-item user" aria-label="Profile">
+    <i class="fas fa-user"></i>
+  </a>
+</nav>
+
+
+
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>

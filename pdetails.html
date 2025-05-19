@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parking Details – Westarider</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    :root {
+      --accent: #f5be30;
+      --text-dark: #333;
+      --bg-light: #fafafa;
+    }
+    body {
+      margin: 0;
+      background: var(--bg-light);
+      font-family: "Segoe UI", sans-serif;
+      color: var(--text-dark);
+      padding-bottom: 70px; /* for fixed book bar */
+    }
+    /* Top Bar */
+    .navbar {
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 0.5rem 1rem;
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      padding: 0;
+    }
+    .navbar-brand img {
+      height: 36px;
+    }
+    /* Detail Card */
+    .detail-container {
+      max-width: 600px;
+      margin: 1rem auto;
+    }
+    .detail-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .detail-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .detail-body {
+      padding: 1rem;
+    }
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .title-row h5 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .rating {
+      color: var(--accent);
+      font-size: 1rem;
+    }
+    .rating span {
+      color: #666;
+      font-size: 0.9rem;
+      margin-left: 0.25rem;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .info-row div {
+      display: flex;
+      align-items: center;
+    }
+    .info-row i {
+      margin-right: 0.25rem;
+    }
+    .divider {
+      border-bottom: 1px solid #eee;
+      margin: 0.5rem 0;
+    }
+    .detail-body h6 {
+      font-size: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .services .badge {
+      background: var(--accent);
+      color: #333;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .availability .progress {
+      height: 8px;
+      border-radius: 4px;
+      background: #eee;
+    }
+    .availability .progress-bar {
+      background: var(--accent);
+    }
+    /* Fixed Book Bar */
+    .fixed-book {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    .days-select {
+      display: flex;
+      align-items: center;
+    }
+    .days-select input {
+      width: 60px;
+      padding: 0.25rem;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+    }
+    .btn-book {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+    }
+    .booking-bar {
+  position: fixed;
+  bottom: 56px;    /* height of bottom-nav */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+.booking-bar .rates div {
+  font-size: 1rem;
+  color: #333;
+}
+.booking-bar .rates small {
+  font-size: 0.85rem;
+  color: #666;
+  margin-left: 0.25rem;
+}
+.btn-book {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.btn-book:hover {
+  background: #e6b22c;
+}
+
+/* bottom-sheet modal */
+#bookingModal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: 70%;
+  background: #fff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
+  z-index: 200;
+}
+#bookingModal.show {
+  transform: translateY(0);
+}
+#bookingModal .close-booking {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+#bookingModal .booking-content {
+  padding: 1rem 1.5rem 2rem;
+}
+#bookingModal .toggle-group {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+#bookingModal .toggle-group button {
+  flex: 1;
+  padding: 0.6rem 0;
+  border: none;
+  background: #f7f7f7;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#bookingModal .toggle-group button.active {
+  background: var(--accent);
+  color: #fff;
+}
+#bookingModal .counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+#bookingModal .counter button {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #ccc;
+  background: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+#bookingModal .counter input {
+  width: 3rem;
+  text-align: center;
+  border: 1px solid #ccc;
+  margin: 0 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+#bookingModal .total {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+#bookingModal .btn-proceed {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 0;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Top navbar -->
+  <nav class="navbar d-flex ">
+    <button class="back-btn" onclick="history.back()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="navbar-brand ml-auto">
+      <img
+        src="https://i.ibb.co/YF6xF8M5/image-2025-05-03-171017704-removebg-preview.png"
+        alt="Westarider Logo"
+      />
+    </div>
+  </nav>
+
+  <!-- Detail content -->
+  <div class="detail-container">
+    <div class="detail-card">
+      <img
+        src="https://www.webbikeworld.com/wp-content/uploads/2017/07/parking-800x588.jpg"
+        alt="Premium Covered Parking"
+        class="detail-img"
+      />
+      <div class="detail-body">
+        <div class="title-row">
+          <h5>Premium Covered Parking</h5>
+          <div class="rating">
+            <i class="fas fa-star"></i>4.7<span>(128)</span>
+          </div>
+        </div>
+        <div class="info-row">
+          <div><i class="fas fa-map-marker-alt"></i>Hafr Al-batin</div>
+          <div><i class="fas fa-dollar-sign"></i>15 SAR/day</div>
+          <div><i class="fas fa-clock"></i>24/7</div>
+          <div><i class="fas fa-car"></i>12 spots</div>
+        </div>
+        <div class="divider"></div>
+        <h6>Description</h6>
+        <p>A secure, 24/7 parking facility located in the heart of Hafr Al-batin. Features CCTV surveillance and on-site security staff.</p>
+        <h6>Services</h6>
+        <div class="services">
+          <span class="badge badge-pill">Bike Cover</span>
+          <span class="badge badge-pill">Cleaning</span>
+          <span class="badge badge-pill">Pre-departure Checkup</span>
+        </div>
+        <h6 class="mt-3">Availability</h6>
+        <div class="availability">
+          <div class="progress mb-1">
+            <div class="progress-bar" role="progressbar" style="width: 48%;" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <small class="text-muted">12 out of 25 spots available</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed Book Bar -->
+  <div class="fixed-book">
+    <div class="days-select">
+      <input type="number" id="daysInput" min="1" value="1" />
+      <span>Days</span>
+    </div>
+    <button class="btn-book">Rent Space</button>
+  </div>
+  <!-- Booking Bar -->
+  <div class="booking-bar">
+    <div class="rates">
+      <div><span class="rate-value">15</span><small>/day</small></div>
+      <div><span class="rate-value">400</span><small>/month</small></div>
+    </div>
+    <button id="bookNowBtn" class="btn-book">Book Now</button>
+  </div>
+
+<!-- Bottom navigation -->
+<nav class="bottom-nav">
+  <a href="store.html" class="nav-item store" aria-label="Store">
+    <i class="fas fa-shopping-bag"></i>
+  </a>
+  <a href="index.html" class="nav-item home" aria-label="Home">
+    <i class="fas fa-home"></i>
+  </a>
+  <a href="user.html" class="nav-item user" aria-label="Profile">
+    <i class="fas fa-user"></i>
+  </a>
+</nav>
+
+  <!-- Custom JS -->
+  <script>(function(){
+  const dailyRate   = 15;
+  const monthlyRate = 400;
+
+  // build modal
+  const modal = document.createElement('div');
+  modal.id = 'bookingModal';
+  modal.innerHTML = `
+    <button class="close-booking">&times;</button>
+    <div class="booking-content">
+      <div class="toggle-group">
+        <button data-type="daily" class="active">Daily</button>
+        <button data-type="monthly">Monthly</button>
+      </div>
+      <div class="counter">
+        <button class="dec">−</button>
+        <input type="text" id="bookingCount" value="1" readonly>
+        <button class="inc">＋</button>
+      </div>
+      <div class="total">Total: SAR <span id="bookingTotal">${dailyRate}</span></div>
+      <button class="btn-proceed">Proceed to Check Out</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  // refs
+  const show = () => modal.classList.add('show');
+  const hide = () => modal.classList.remove('show');
+  const toggleBtns = modal.querySelectorAll('.toggle-group button');
+  const decBtn = modal.querySelector('.dec');
+  const incBtn = modal.querySelector('.inc');
+  const countInput = modal.querySelector('#bookingCount');
+  const totalSpan = modal.querySelector('#bookingTotal');
+  const proceedBtn = modal.querySelector('.btn-proceed');
+  let type = 'daily', count = 1;
+
+  function updateTotal() {
+    const rate = type === 'daily' ? dailyRate : monthlyRate;
+    totalSpan.textContent = (rate * count).toLocaleString();
+  }
+
+  // Book Now opens
+  document.getElementById('bookNowBtn')
+    .addEventListener('click', show);
+
+  // Close modal
+  modal.querySelector('.close-booking')
+    .addEventListener('click', hide);
+
+  // Toggle daily/monthly
+  toggleBtns.forEach(btn => btn.addEventListener('click', e => {
+    toggleBtns.forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    type = e.target.getAttribute('data-type');
+    updateTotal();
+  }));
+
+  // Increment/decrement
+  decBtn.addEventListener('click', () => {
+    if (count > 1) count--, countInput.value = count, updateTotal();
+  });
+  incBtn.addEventListener('click', () => {
+    count++, countInput.value = count, updateTotal();
+  });
+
+  // Proceed to checkout
+  proceedBtn.addEventListener('click', () => {
+    // e.g. navigate to checkout with query params
+    window.location.href = `checkout.html?unit=${type}&qty=${count}`;
+  });
+})();
+</script>
+  <script src="script.js"></script>
+</body>
+</html>
