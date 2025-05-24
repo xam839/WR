@@ -1279,9 +1279,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2 id="modalTitle">Book Your Training Session</h2>
-        <button class="close-modal" onclick="closeBookingModal()">
-          <i class="fas fa-times"></i>
-        </button>
+              <button class="close-modal" onclick="event.stopPropagation(); closeBookingModal()">
+  <i class="fas fa-times"></i>
+</button>
       </div>
 
       <div class="modal-body" id="modalBody">
