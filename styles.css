@@ -524,62 +524,32 @@
 .bike-card .price { text-align:center; font-weight:bold; color:var(--accent); margin-bottom:0.5rem; }
 .bike-card .details-btn { display:block; margin:0 auto 0.75rem; font-size:0.8rem; }
 
-/* Square banner section */
-    .banner-section {
-      padding: 0 15px;
-      margin: 25px auto;
-      text-align: center;
-    }
-    
-    .banner-link {
-      display: inline-block;
-      position: relative;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      background: #fff;
-    }
-    
-    .banner-link:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
-    }
-    
-    .banner-image {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease;
-    }
-    
-    .banner-link:hover .banner-image {
-      transform: scale(1.08);
-    }
-    
-    /* Add a subtle glow effect on hover */
-    .banner-link::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #f5be30, #f7d070, #f5be30);
-      border-radius: 20px;
-      opacity: 0;
-      z-index: -1;
-      transition: opacity 0.4s ease;
-    }
-    
-    .banner-link:hover::before {
-      opacity: 0.6;
-    }
-    
-    @media (max-width: 480px) {
-      .banner-image {
-        width: 160px;
-        height: 160px;
-      }
-    }
+.banner-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;           /* space between images */
+  margin: 30px 0;      /* vertical spacing from other sections */
+  text-align: center;
+}
+
+.banner-image {
+  width: 200px;        /* your original size */
+  height: 200px;
+  object-fit: contain;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px; /* subtle rounding, optional */
+}
+
+.banner-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 480px) {
+  .banner-image {
+    width: 160px;      /* preserve your earlier mobile size */
+    height: 160px;
+  }
+}
+
