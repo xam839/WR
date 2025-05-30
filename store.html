@@ -4,180 +4,1040 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Westarider Store</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <!-- Global Styles -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --nav-height: clamp(60px, 8vh, 80px);
+      --accent: #f5be30;
+      --accent-hover: #e6b22c;
+      --text-dark: #050608;
+      --bg-light: #f5f5f5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 50%, #f0f0f0 100%);
+      min-height: 100vh;
+      color: var(--text-dark);
+      overflow-x: hidden;
+      padding-bottom: calc(var(--nav-height) + env(safe-area-inset-bottom));
+      padding-top: 56px;
+    }
+
+    /* Animated background particles */
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: rgba(245, 190, 48, 0.2);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.2; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 0.4; }
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--accent);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 15px 0;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .nav-cart {
+      color: #000000;
+      font-size: 1.4rem;
+      text-decoration: none;
+      margin-right: auto;
+      display: flex;
+      align-items: center;
+      padding: 0.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-cart:hover {
+      color: #f0e35c;
+      text-decoration: none;
+      transform: translateY(-2px);
+    }
+
+    .navbar-brand img {
+      height: 40px;
+    }
+
+    /* Main Content */
+    .store-container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      position: relative;
+      margin-bottom: 30px;
+      animation: slideDown 0.6s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 18px 50px 18px 20px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      color: var(--text-dark);
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 1);
+      border-color: var(--accent);
+      box-shadow: 0 8px 32px rgba(245, 190, 48, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .search-bar input::placeholder {
+      color: rgba(5, 6, 8, 0.6);
+    }
+
+    .search-bar i {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #888;
+      transition: all 0.3s ease;
+    }
+
+    /* Category Tabs */
+    .category-tabs-container {
+      margin-bottom: 30px;
+      animation: slideUp 0.6s ease-out 0.2s both;
+      text-align: center;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .category-tabs {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .category-tabs::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .category-tabs::-webkit-scrollbar-track {
+      background: rgba(245, 190, 48, 0.1);
+      border-radius: 2px;
+    }
+
+    .category-tabs::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .tab {
+      background: #f0f0f0;
+      border: none;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(245, 190, 48, 0.1);
+      min-width: 80px;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .tab:hover {
+      background: rgba(245, 190, 48, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 8px 25px rgba(245, 190, 48, 0.3);
+    }
+
+    .tab img {
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+      margin-right: 0.01rem;
+      transition: opacity 0.3s, filter 0.3s;
+    }
+
+    .tab.active img {
+      filter: drop-shadow(0 0 4px rgba(0,0,0,0.2));
+      opacity: 1;
+    }
+
+    .tab:not(.active) img {
+      opacity: 0.6;
+    }
+
+    .tab span {
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .active-category-label {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 480px) {
+      .tab span {
+        display: none;
+      }
+    }
+
+    /* Products Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      grid-auto-rows: 1fr;
+      gap: 1rem;
+      animation: fadeIn 0.6s ease-out 0.4s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border-radius: 12px;
+      padding: 15px;
+      border: 1px solid rgba(245, 190, 48, 0.1);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(245, 190, 48, 0.1), transparent);
+      transition: all 0.6s ease;
+    }
+
+    .product-card:hover::before {
+      left: 100%;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 1);
+      border-color: var(--accent);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .product-card h6 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 5px 0;
+      color: var(--text-dark);
+      line-height: 1.3;
+      height: 36px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .price {
+      color: var(--accent);
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .add-cart {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      margin-top: auto;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .add-cart:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(245, 190, 48, 0.4);
+    }
+
+    /* Product Modal */
+    .product-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      display: flex;
+      align-items: flex-end;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .product-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 248, 248, 0.98) 100%);
+      backdrop-filter: blur(30px);
+      border-radius: 25px 25px 0 0;
+      padding: 30px 25px;
+      border: 1px solid rgba(245, 190, 48, 0.2);
+      transform: translateY(100%);
+      transition: all 0.4s ease;
+      color: var(--text-dark);
+    }
+
+    .product-modal.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h3 {
+      color: var(--text-dark);
+    }
+
+    .modal-close {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: rgba(245, 190, 48, 0.1);
+      border: none;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: var(--accent);
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    .modal-product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .modal-product-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-dark);
+    }
+
+    .modal-product-price {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 25px;
+    }
+
+    .size-selector {
+      margin-bottom: 25px;
+    }
+
+    .size-selector h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--text-dark);
+    }
+
+    .size-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .size-option {
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #f8f8f8;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .size-option:hover, .size-option.selected {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .quantity-selector {
+      margin-bottom: 30px;
+    }
+
+    .quantity-selector h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--text-dark);
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .quantity-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      background: #f8f8f8;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .quantity-btn:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .quantity-display {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+      min-width: 30px;
+      text-align: center;
+    }
+
+    .modal-add-cart {
+      width: 100%;
+      padding: 18px;
+      border: none;
+      border-radius: 15px;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(245, 190, 48, 0.3);
+    }
+
+    .modal-add-cart:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(245, 190, 48, 0.4);
+    }
+
+    /* Bottom Navigation - Using your exact styles */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      display: flex;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .nav-item {
+      flex: 1;
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, color 0.3s;
+      text-decoration: none;
+    }
+
+    .nav-item + .nav-item {
+      border-left: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .nav-item i {
+      font-size: 1.6rem;
+      color: inherit;
+    }
+
+    .nav-item.active {
+      background: #fff;
+      color: var(--accent);
+    }
+
+    .nav-item.active i {
+      color: var(--accent);
+    }
+
+    @media (max-width: 360px) {
+      :root { --nav-height: 50px; }
+      .nav-item i { font-size: 1.3rem; }
+    }
+    /* Responsive */
+    @media (max-width: 480px) {
+      .store-container {
+        padding: 15px;
+      }
+      
+      .products-grid {
+        gap: 15px;
+      }
+      
+      .product-card {
+        padding: 12px;
+      }
+    }
+
+    /* Hide products initially for animation */
+    .product-card {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: productSlideIn 0.6s ease-out forwards;
+    }
+
+    @keyframes productSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .product-card:nth-child(1) { animation-delay: 0.1s; }
+    .product-card:nth-child(2) { animation-delay: 0.2s; }
+    .product-card:nth-child(3) { animation-delay: 0.3s; }
+    .product-card:nth-child(4) { animation-delay: 0.4s; }
+    .product-card:nth-child(5) { animation-delay: 0.5s; }
+    .product-card:nth-child(6) { animation-delay: 0.6s; }
+    .product-card:nth-child(7) { animation-delay: 0.7s; }
+    .product-card:nth-child(8) { animation-delay: 0.8s; }
+    .product-card:nth-child(9) { animation-delay: 0.9s; }
+    .product-card:nth-child(10) { animation-delay: 1.0s; }
+  </style>
 </head>
 <body>
-  <!-- Navbar (same as index) -->
-  <nav class="navbar navbar-expand-lg">
-    <div class="container">
+  <!-- Animated Background -->
+  <div class="bg-particles" id="particles"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-content">
       <a href="cart.html" class="nav-cart" aria-label="Cart">
         <i class="fas fa-shopping-cart"></i>
       </a>
-      <div class="navbar-brand ml-auto">
+      <div class="navbar-brand">
         <img src="https://i.ibb.co/YF6xF8M5/image-2025-05-03-171017704-removebg-preview.png" alt="شعار" />
       </div>
     </div>
   </nav>
 
-<!-- Store Content -->
-<div class="store-container container">
-  <!-- Search Bar -->
-  <div class="search-bar">
-    <input type="search" id="product-search" placeholder="Search for products …">
-    <i class="fas fa-search"></i>
+  <!-- Store Content -->
+  <div class="store-container">
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="search" id="product-search" placeholder="Search for products …">
+      <i class="fas fa-search"></i>
+    </div>
+
+    <!-- Category Tabs + Active Label -->
+    <div class="category-tabs-container">
+      <div class="category-tabs">
+        <button class="tab active" data-category="Helmets">
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDOC42ODYyOSAyIDYgNC42ODYyOSA2IDhWMTZDNiAxOC4yMDkxIDcuNzkwODYgMjAgMTAgMjBIMTRDMTYuMjA5MSAyMCAxOCAxOC4yMDkxIDE4IDE2VjhDMTggNC42ODYyOSAxNS4zMTM3IDIgMTIgMloiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTYgMTJIMTgiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+" alt="Helmets">
+          <span>Helmets</span>
+        </button>
+        <button class="tab" data-category="Boots">
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMkw2IDE0TDQgMjJIMjBMMTggMTRMMTYgMkg4WiIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=" alt="Boots">
+          <span>Boots</span>
+        </button>
+        <button class="tab" data-category="Gloves">
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMOCA2VjEwSDEyVjZMMTYgNFYxMEgxMlYxNEg4VjIySDIwVjE0SDE2VjEwSDE4VjZMMTQgMkgxMloiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+" alt="Gloves">
+          <span>Gloves</span>
+        </button>
+        <button class="tab" data-category="Pants">
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMkgxNlYxMEwxNCAyMkg2TDggMTBWMloiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+" alt="Pants">
+          <span>Pants</span>
+        </button>
+        <button class="tab" data-category="Jackets">
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTYgNEgxOFYyMEg2VjRaIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik02IDEwSDE4IiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==" alt="Jackets">
+          <span>Jackets</span>
+        </button>
+      </div>
+      <div id="activeCategoryLabel" class="active-category-label">Helmets</div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-grid" id="products-grid">
+      <!-- Helmets -->
+      <div class="product-card" data-category="Helmets" data-product='{"name":"LS2 MX700 Subverter Liner","price":"199 SAR","image":"https://www.safe2ride.com.au/cdn/shop/files/LE1023010204_300x.jpg?v=1739899934","sizes":["S","M","L","XL"]}'>
+        <img src="https://www.safe2ride.com.au/cdn/shop/files/LE1023010204_300x.jpg?v=1739899934" alt="LS2 MX700 Subverter Liner">
+        <h6>LS2 MX700 Subverter Liner</h6>
+        <p class="price">199 SAR</p>
+        <button class="add-cart">
+          <i class="fas fa-cart-plus" aria-hidden="true"></i>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+      <div class="product-card" data-category="Helmets" data-product='{"name":"LS2 MX702 Sun Visor – Tinted","price":"49 SAR","image":"https://www.safe2ride.com.au/cdn/shop/files/LS2Z806702VIS11_300x.jpg?v=1743575588","sizes":["One Size"]}'>
+        <img src="https://www.safe2ride.com.au/cdn/shop/files/LS2Z806702VIS11_300x.jpg?v=1743575588" alt="LS2 MX702 Sun Visor – Tinted">
+        <h6>LS2 MX702 Sun Visor – Tinted</h6>
+        <p class="price">49 SAR</p>
+        <button class="add-cart">
+          <i class="fas fa-cart-plus" aria-hidden="true"></i>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+
+      <!-- Boots -->
+      <div class="product-card" data-category="Boots" data-product='{"name":"Leatt 5.5 Shin Plate Kit (Pair) – Royal","price":"89 SAR","image":"https://www.safe2ride.com.au/cdn/shop/files/LE3024050280_540x.jpg?v=1733327324","sizes":["7","8","9","10","11","12"]}'>
+        <img src="https://www.safe2ride.com.au/cdn/shop/files/LE3024050280_540x.jpg?v=1733327324" alt="Leatt 5.5 Shin Plate Kit (Pair) – Royal">
+        <h6>Leatt 5.5 Shin Plate Kit (Pair) – Royal</h6>
+        <p class="price">89 SAR</p>
+        <button class="add-cart">
+          <i class="fas fa-cart-plus" aria-hidden="true"></i>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+
+      <!-- Gloves -->
+      <div class="product-card" data-category="Gloves" data-product='{"name":"Leatt 2023 1.5 Gripr Glove – Royal","price":"39 SAR","image":"https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE6023041102.JPG","sizes":["S","M","L","XL"]}'>
+        <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE6023041102.JPG" alt="Leatt 2023 1.5 Gripr Glove – Royal">
+        <h6>Leatt 2023 1.5 Gripr Glove – Royal</h6>
+        <p class="price">39 SAR</p>
+        <button class="add-cart">
+          <i class="fas fa-cart-plus" aria-hidden="true"></i>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+      <div class="product-card" data-category="Gloves" data-product='{"name":"Leatt 1.5 Junior Glove – Black","price":"35 SAR","image":"https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/OXFORD/OXGM2011013XL.JPG","sizes":["XS","S","M","L"]}'>
+        <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/OXFORD/OXGM2011013XL.JPG" alt="Leatt 1.5 Junior Glove – Black">
+        <h6>Leatt 1.5 Junior Glove – Black</h6>
+        <p class="price">35 SAR</p>
+        <button class="add-cart">
+          <i class="fas fa-cart-plus" aria-hidden="true"></i>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+
+      <!-- Pants -->
+      <div class="product-card" data-category="Pants" data-product='{"name":"Oxford Original CE Armourlite Straight Jean","price":"149 SAR","image":"https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/OXFORD/OXDM199101S34.JPG","sizes":["28","30","32","34","36","38"]}'>
+        <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/OXFORD/OXDM199101S34.JPG" alt="Oxford Original CE Armourlite Straight Jean">
+        <h6>Oxford Original CE Armourlite Straight Jean</h6>
+        <p class="price">149 SAR</p>
+        <button class="add-cart">
+          <i class="fas fa-cart-plus" aria-hidden="true"></i>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+      <div class="product-card" data-category="Pants" data-product='{"name":"Leatt 2024 5.5 UltraWeld Jersey – Sundown","price":"119 SAR","image":"https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024080230.JPG","sizes":["S","M","L","XL","XXL"]}'>
+        <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024080230.JPG" alt="Leatt 2024 5.5 UltraWeld Jersey – Sundown">
+        <h6>Leatt 2024 5.5 UltraWeld Jersey – Sundown</h6>
+        <p class="price">119 SAR</p>
+        <button class="add-cart">
+          <i class="fas fa-cart-plus" aria-hidden="true"></i>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+
+      <!-- Jackets -->
+      <div class="product-card" data-category="Jackets" data-product='{"name":"Leatt 7.5 ADV MultiTour Jacket – Royal","price":"199 SAR","image":"https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024010141.JPG","sizes":["S","M","L","XL","XXL"]}'>
+        <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024010141.JPG" alt="Leatt 7.5 ADV MultiTour Jacket – Royal">
+        <h6>Leatt 7.5 ADV MultiTour Jacket – Royal</h6>
+        <p class="price">199 SAR</p>
+        <button class="add-cart">
+          <i class="fas fa-cart-plus" aria-hidden="true"></i>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+      <div class="product-card" data-category="Jackets" data-product='{"name":"Leatt 7.5 ADV MultiTour Jacket – Desert","price":"199 SAR","image":"https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024010120.JPG","sizes":["S","M","L","XL","XXL"]}'>
+        <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024010120.JPG" alt="Leatt 7.5 ADV MultiTour Jacket – Desert">
+        <h6>Leatt 7.5 ADV MultiTour Jacket – Desert</h6>
+        <p class="price">199 SAR</p>
+        <button class="add-cart">
+          <i class="fas fa-cart-plus" aria-hidden="true"></i>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+    </div>
   </div>
 
-<!-- Category Tabs + Active Label -->
-<div class="category-tabs-container">
-  <div class="category-tabs scrollable">
-    <button class="tab active" data-category="Helmets">
-      <img src="assets/helmet.png" alt="Helmets">
-      <span>Helmets</span>
-    </button>
-    <button class="tab" data-category="Boots">
-      <img src="assets/boot.png" alt="Boots">
-      <span>Boots</span>
-    </button>
-    <button class="tab" data-category="Gloves">
-      <img src="assets/gloves.png" alt="Gloves">
-      <span>Gloves</span>
-    </button>
-    <button class="tab" data-category="Pants">
-      <img src="assets/pants.png" alt="Pants">
-      <span>Pants</span>
-    </button>
-    <button class="tab" data-category="Jackets">
-      <img src="assets/jacket.png" alt="Jackets">
-      <span>Jackets</span>
-    </button>
-  </div>
-  <div id="activeCategoryLabel" class="active-category-label">All</div>
-</div>
-
-
-
-  <!-- Products Grid -->
-  <div class="products-grid" id="products-grid">
-    <!-- Helmets -->
-    <div class="product-card" data-category="Helmets">
-      <img src="https://www.safe2ride.com.au/cdn/shop/files/LE1023010204_300x.jpg?v=1739899934" alt="LS2 MX700 Subverter Liner">
-      <h6>LS2 MX700 Subverter Liner</h6>
-      <p class="price">199 SAR</p>
-      <button class="add-cart">
-        <i class="fas fa-cart-plus" aria-hidden="true"></i>
-        <span>Add to Cart</span>
-      </button>
-    </div>
-    <div class="product-card" data-category="Helmets">
-      <img src="https://www.safe2ride.com.au/cdn/shop/files/LS2Z806702VIS11_300x.jpg?v=1743575588" alt="LS2 MX702 Sun Visor – Tinted">
-      <h6>LS2 MX702 Sun Visor – Tinted</h6>
-      <p class="price">49 SAR</p>
-      <button class="add-cart">
-        <i class="fas fa-cart-plus" aria-hidden="true"></i>
-        <span>Add to Cart</span>
-      </button>
-    </div>
-
-    <!-- Boots -->
-    <div class="product-card" data-category="Boots">
-      <img src="https://www.safe2ride.com.au/cdn/shop/files/LE3023050100_300x.jpg?v=1733207422" alt="Leatt 5.5 GPX Boot FlexLock Bar & Shims">
-      <h6>Leatt 5.5 GPX Boot FlexLock Bar & Shims</h6>
-      <p class="price">129 SAR</p>
-      <button class="add-cart">
-        <i class="fas fa-cart-plus" aria-hidden="true"></i>
-        <span>Add to Cart</span>
-      </button>
-    </div>
-    <div class="product-card" data-category="Boots">
-      <img src="https://www.safe2ride.com.au/cdn/shop/files/LE3024050280_540x.jpg?v=1733327324" alt="Leatt 5.5 Shin Plate Kit (Pair) – Royal">
-      <h6>Leatt 5.5 Shin Plate Kit (Pair) – Royal</h6>
-      <p class="price">89 SAR</p>
-      <button class="add-cart">
-        <i class="fas fa-cart-plus" aria-hidden="true"></i>
-        <span>Add to Cart</span>
-      </button>
-    </div>
-
-    <!-- Gloves -->
-    <div class="product-card" data-category="Gloves">
-      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE6023041102.JPG" alt="Leatt 2023 1.5 Gripr Glove – Royal">
-      <h6>Leatt 2023 1.5 Gripr Glove – Royal</h6>
-      <p class="price">39 SAR</p>
-      <button class="add-cart">
-        <i class="fas fa-cart-plus" aria-hidden="true"></i>
-        <span>Add to Cart</span>
-      </button>
-    </div>
-    <div class="product-card" data-category="Gloves">
-      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/OXFORD/OXGM2011013XL.JPG" alt="Leatt 1.5 Junior Glove – Black">
-      <h6>Leatt 1.5 Junior Glove – Black</h6>
-      <p class="price">35 SAR</p>
-      <button class="add-cart">
-        <i class="fas fa-cart-plus" aria-hidden="true"></i>
-        <span>Add to Cart</span>
-      </button>
-    </div>
-
-    <!-- Pants -->
-    <div class="product-card" data-category="Pants">
-      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/OXFORD/OXDM199101S34.JPG" alt="Oxford Original CE Armourlite Straight Jean">
-      <h6>Oxford Original CE Armourlite Straight Jean</h6>
-      <p class="price">149 SAR</p>
-      <button class="add-cart">
-        <i class="fas fa-cart-plus" aria-hidden="true"></i>
-        <span>Add to Cart</span>
-      </button>
-    </div>
-    <div class="product-card" data-category="Pants">
-      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024080230.JPG" alt="Leatt 2024 5.5 UltraWeld Jersey – Sundown">
-      <h6>Leatt 2024 5.5 UltraWeld Jersey – Sundown</h6>
-      <p class="price">119 SAR</p>
-      <button class="add-cart">
-        <i class="fas fa-cart-plus" aria-hidden="true"></i>
-        <span>Add to Cart</span>
-      </button>
-    </div>
-
-    <!-- Jackets -->
-    <div class="product-card" data-category="Jackets">
-      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024010141.JPG" alt="Leatt 7.5 ADV MultiTour Jacket – Royal">
-      <h6>Leatt 7.5 ADV MultiTour Jacket – Royal</h6>
-      <p class="price">199 SAR</p>
-      <button class="add-cart">
-        <i class="fas fa-cart-plus" aria-hidden="true"></i>
-        <span>Add to Cart</span>
-      </button>
-    </div>
-    <div class="product-card" data-category="Jackets">
-      <img src="https://whitespower-images-upper.s3-ap-southeast-2.amazonaws.com/ALL/LEATT/LE5024010120.JPG" alt="Leatt 7.5 ADV MultiTour Jacket – Desert">
-      <h6>Leatt 7.5 ADV MultiTour Jacket – Desert</h6>
-      <p class="price">199 SAR</p>
-      <button class="add-cart">
-        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+  <!-- Product Modal -->
+  <div class="product-modal" id="productModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Product Details</h3>
+        <button class="modal-close" id="modalClose">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <img class="modal-product-image" id="modalImage" src="" alt="">
+      <h2 class="modal-product-title" id="modalTitle"></h2>
+      <p class="modal-product-price" id="modalPrice"></p>
+      
+      <div class="size-selector">
+        <h4>Size</h4>
+        <div class="size-options" id="sizeOptions"></div>
+      </div>
+      
+      <div class="quantity-selector">
+        <h4>Quantity</h4>
+        <div class="quantity-controls">
+          <button class="quantity-btn" id="decreaseQty">-</button>
+          <span class="quantity-display" id="quantity">1</span>
+          <button class="quantity-btn" id="increaseQty">+</button>
+        </div>
+      </div>
+      
+      <button class="modal-add-cart" id="modalAddCart">
+        <i class="fas fa-cart-plus"></i>
         <span>Add to Cart</span>
       </button>
     </div>
   </div>
-</div>
-<!-- Bottom navigation -->
-<nav class="bottom-nav">
-  <a href="store.html" class="nav-item store active" aria-label="Store">
-    <i class="fas fa-shopping-bag"></i>
-  </a>
-  <a href="index.html" class="nav-item home" aria-label="Home">
-    <i class="fas fa-home"></i>
-  </a>
-  <a href="user.html" class="nav-item user" aria-label="Profile">
-    <i class="fas fa-user"></i>
-  </a>
-</nav>
 
-  <!-- Store JS -->
-  <script src="store.js"></script>
+  <!-- Bottom navigation -->
+  <nav class="bottom-nav">
+    <a href="store.html" class="nav-item store active" aria-label="Store">
+      <i class="fas fa-shopping-bag"></i>
+    </a>
+    <a href="index.html" class="nav-item home" aria-label="Home">
+      <i class="fas fa-home"></i>
+    </a>
+    <a href="user.html" class="nav-item user" aria-label="Profile">
+      <i class="fas fa-user"></i>
+    </a>
+  </nav>
+
+  <script>
+    // Create animated background particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        container.appendChild(particle);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      
+      const searchInput = document.getElementById('product-search');
+      const tabs = document.querySelectorAll('.category-tabs .tab');
+      const cards = document.querySelectorAll('.product-card');
+      const activeLabel = document.getElementById('activeCategoryLabel');
+      const modal = document.getElementById('productModal');
+      const modalClose = document.getElementById('modalClose');
+      const modalImage = document.getElementById('modalImage');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalPrice = document.getElementById('modalPrice');
+      const sizeOptions = document.getElementById('sizeOptions');
+      const quantityDisplay = document.getElementById('quantity');
+      const decreaseQty = document.getElementById('decreaseQty');
+      const increaseQty = document.getElementById('increaseQty');
+      const modalAddCart = document.getElementById('modalAddCart');
+
+      let currentQuantity = 1;
+      let selectedSize = '';
+      let currentProduct = null;
+
+      // Filter function
+      function filterProducts() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const activeCategory = document.querySelector('.category-tabs .tab.active').dataset.category;
+
+        cards.forEach((card, index) => {
+          const title = card.querySelector('h6').innerText.toLowerCase();
+          const matchesSearch = title.includes(searchTerm);
+          const matchesCategory = activeCategory === 'Helmets' || card.dataset.category === activeCategory;
+          
+          if (matchesSearch && matchesCategory) {
+            card.style.display = 'block';
+            card.style.animationDelay = (index * 0.1) + 's';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+
+      // Initial render
+      filterProducts();
+
+      // Tab click handlers
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          
+          const cat = tab.dataset.category;
+          activeLabel.textContent = cat;
+          
+          filterProducts();
+        });
+      });
+
+      // Search functionality
+      searchInput.addEventListener('input', filterProducts);
+
+      // Product card click handlers
+      cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.add-cart')) {
+            return; // Don't open modal if add to cart button was clicked
+          }
+          
+          const productData = JSON.parse(card.dataset.product);
+          currentProduct = productData;
+          openProductModal(productData);
+        });
+      });
+
+      // Modal functions
+      function openProductModal(product) {
+        modalImage.src = product.image;
+        modalTitle.textContent = product.name;
+        modalPrice.textContent = product.price;
+        
+        // Populate size options
+        sizeOptions.innerHTML = '';
+        selectedSize = product.sizes[0]; // Default to first size
+        
+        product.sizes.forEach(size => {
+          const sizeBtn = document.createElement('div');
+          sizeBtn.className = 'size-option';
+          if (size === selectedSize) sizeBtn.classList.add('selected');
+          sizeBtn.textContent = size;
+          sizeBtn.addEventListener('click', () => {
+            document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+            sizeBtn.classList.add('selected');
+            selectedSize = size;
+          });
+          sizeOptions.appendChild(sizeBtn);
+        });
+        
+        // Reset quantity
+        currentQuantity = 1;
+        quantityDisplay.textContent = currentQuantity;
+        
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      // Modal event listeners
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      // Quantity controls
+      decreaseQty.addEventListener('click', () => {
+        if (currentQuantity > 1) {
+          currentQuantity--;
+          quantityDisplay.textContent = currentQuantity;
+        }
+      });
+
+      increaseQty.addEventListener('click', () => {
+        currentQuantity++;
+        quantityDisplay.textContent = currentQuantity;
+      });
+
+      // Add to cart from modal
+      modalAddCart.addEventListener('click', () => {
+        // Add your cart logic here
+        console.log('Adding to cart:', {
+          product: currentProduct,
+          size: selectedSize,
+          quantity: currentQuantity
+        });
+        
+        // Show success feedback
+        modalAddCart.innerHTML = '<i class="fas fa-check"></i><span>Added!</span>';
+        modalAddCart.style.background = 'linear-gradient(135deg, #00c851 0%, #00a63f 100%)';
+        
+        setTimeout(() => {
+          modalAddCart.innerHTML = '<i class="fas fa-cart-plus"></i><span>Add to Cart</span>';
+          modalAddCart.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+          closeModal();
+        }, 1000);
+      });
+
+      // Add to cart from product cards
+      document.querySelectorAll('.add-cart').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const card = e.target.closest('.product-card');
+          const productData = JSON.parse(card.dataset.product);
+          
+          // Add your cart logic here
+          console.log('Quick add to cart:', productData);
+          
+          // Visual feedback
+          const originalText = btn.innerHTML;
+          btn.innerHTML = '<i class="fas fa-check"></i><span>Added!</span>';
+          btn.style.background = 'linear-gradient(135deg, #00c851 0%, #00a63f 100%)';
+          
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+          }, 1000);
+        });
+      });
+
+      // Navbar scroll effect
+      window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+          navbar.style.background = 'rgba(15, 15, 35, 0.98)';
+          navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.2)';
+        } else {
+          navbar.style.background = 'rgba(15, 15, 35, 0.95)';
+          navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.1)';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
