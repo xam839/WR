@@ -674,25 +674,25 @@
 
     <!-- Category Tabs + Active Label -->
     <div class="category-tabs-container">
-      <div class="category-tabs">
+      <div class="category-tabs scrollable">
         <button class="tab active" data-category="Helmets">
-          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDOC42ODYyOSAyIDYgNC42ODYyOSA2IDhWMTZDNiAxOC4yMDkxIDcuNzkwODYgMjAgMTAgMjBIMTRDMTYuMjA5MSAyMCAxOCAxOC4yMDkxIDE4IDE2VjhDMTggNC42ODYyOSAxNS4zMTM3IDIgMTIgMloiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTYgMTJIMTgiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+" alt="Helmets">
+          <img src="assets/helmet.png" alt="Helmets">
           <span>Helmets</span>
         </button>
         <button class="tab" data-category="Boots">
-          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMkw2IDE0TDQgMjJIMjBMMTggMTRMMTYgMkg4WiIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=" alt="Boots">
+          <img src="assets/boot.png" alt="Boots">
           <span>Boots</span>
         </button>
         <button class="tab" data-category="Gloves">
-          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMOCA2VjEwSDEyVjZMMTYgNFYxMEgxMlYxNEg4VjIySDIwVjE0SDE2VjEwSDE4VjZMMTQgMkgxMloiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+" alt="Gloves">
+          <img src="assets/gloves.png" alt="Gloves">
           <span>Gloves</span>
         </button>
         <button class="tab" data-category="Pants">
-          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMkgxNlYxMEwxNCAyMkg2TDggMTBWMloiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+" alt="Pants">
+          <img src="assets/pants.png" alt="Pants">
           <span>Pants</span>
         </button>
         <button class="tab" data-category="Jackets">
-          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTYgNEgxOFYyMEg2VjRaIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik02IDEwSDE4IiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==" alt="Jackets">
+          <img src="assets/jacket.png" alt="Jackets">
           <span>Jackets</span>
         </button>
       </div>
@@ -845,7 +845,7 @@
     // Create animated background particles
     function createParticles() {
       const container = document.getElementById('particles');
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 30; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         particle.style.left = Math.random() * 100 + '%';
@@ -995,11 +995,11 @@
         
         // Show success feedback
         modalAddCart.innerHTML = '<i class="fas fa-check"></i><span>Added!</span>';
-        modalAddCart.style.background = 'linear-gradient(135deg, #00c851 0%, #00a63f 100%)';
+        modalAddCart.style.background = 'var(--accent-hover)';
         
         setTimeout(() => {
           modalAddCart.innerHTML = '<i class="fas fa-cart-plus"></i><span>Add to Cart</span>';
-          modalAddCart.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+          modalAddCart.style.background = 'var(--accent)';
           closeModal();
         }, 1000);
       });
@@ -1017,11 +1017,11 @@
           // Visual feedback
           const originalText = btn.innerHTML;
           btn.innerHTML = '<i class="fas fa-check"></i><span>Added!</span>';
-          btn.style.background = 'linear-gradient(135deg, #00c851 0%, #00a63f 100%)';
+          btn.style.background = 'var(--accent-hover)';
           
           setTimeout(() => {
             btn.innerHTML = originalText;
-            btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            btn.style.background = 'var(--accent)';
           }, 1000);
         });
       });
@@ -1030,11 +1030,11 @@
       window.addEventListener('scroll', () => {
         const navbar = document.querySelector('.navbar');
         if (window.scrollY > 50) {
-          navbar.style.background = 'rgba(15, 15, 35, 0.98)';
-          navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.2)';
+          navbar.style.background = 'rgba(245, 190, 48, 0.98)';
+          navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
         } else {
-          navbar.style.background = 'rgba(15, 15, 35, 0.95)';
-          navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.1)';
+          navbar.style.background = 'var(--accent)';
+          navbar.style.boxShadow = 'none';
         }
       });
     });
