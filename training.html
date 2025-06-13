@@ -1044,16 +1044,13 @@
           <i class="fas fa-th"></i> All Trainers
         </div>
         <div class="filter-pill" onclick="filterTrainers('beginner')">
-          <i class="fas fa-seedling"></i> Beginner Friendly
-        </div>
-        <div class="filter-pill" onclick="filterTrainers('advanced')">
-          <i class="fas fa-mountain"></i> Advanced
+          <i class="fas fa-seedling"></i> Beginner 
         </div>
         <div class="filter-pill" onclick="filterTrainers('endurance')">
-          <i class="fas fa-road"></i> Endurance
+          <i class="fas fa-mountain"></i> Intermediate
         </div>
-        <div class="filter-pill" onclick="filterTrainers('speed')">
-          <i class="fas fa-tachometer-alt"></i> Speed Training
+        <div class="filter-pill" onclick="filterTrainers('advanced')">
+          <i class="fas fa-road"></i> Advanced
         </div>
       </div>
     </div>
@@ -1061,7 +1058,7 @@
     <!-- Enhanced Trainers Grid -->
     <div class="trainers-grid">
       <!-- Trainer 1 -->
-      <div class="trainer-card" style="--i: 0" data-category="beginner endurance">
+      <div class="trainer-card" style="--i: 0" data-category="advanced">
         <div class="trainer-header">
           <div class="trainer-status">
             <span class="status-dot"></span>
@@ -1079,7 +1076,7 @@
         </div>
         <div class="trainer-body">
           <h3 class="trainer-name">Ahmed Hassan</h3>
-          <p class="trainer-specialty">Endurance & Recovery Specialist</p>
+          <p class="trainer-specialty">Advanced Trainer</p>
           
           <div class="trainer-info">
             <div class="info-item">
@@ -1101,73 +1098,19 @@
           </div>
 
           <div class="trainer-tags">
-            <span class="tag">Nutrition Guidance</span>
-            <span class="tag">Heart Rate Training</span>
-            <span class="tag">Recovery Plans</span>
+            <span class="tag">Track riding</span>
+            <span class="tag">Off-road</span>
+            <span class="tag">Stunt Riding</span>
           </div>
 
-          <button class="quick-book-btn" onclick="openBookingModal('Ahmed Hassan', 'Endurance & Recovery Specialist', 'AH')">
+          <button class="quick-book-btn" onclick="openBookingModal('Ahmed Hassan', 'Advanced Trainer', 'AH')">
             <i class="fas fa-calendar-plus"></i>
             Book Session
           </button>
         </div>
       </div>
-
-      <!-- Trainer 2 -->
-      <div class="trainer-card" style="--i: 1" data-category="advanced speed">
-        <div class="trainer-header">
-          <div class="trainer-status">
-            <span class="status-dot"></span>
-            Available Today
-          </div>
-          <div class="trainer-avatar">SM</div>
-          <div class="trainer-rating">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
-            <span>4.8 (62 reviews)</span>
-          </div>
-        </div>
-        <div class="trainer-body">
-          <h3 class="trainer-name">Sarah Mitchell</h3>
-          <p class="trainer-specialty">Performance & Speed Coach</p>
-          
-          <div class="trainer-info">
-            <div class="info-item">
-              <i class="fas fa-map-marker-alt"></i>
-              <span>Westside Cycling Hub</span>
-            </div>
-            <div class="info-item">
-              <i class="fas fa-clock"></i>
-              <span>1.5-hour sessions</span>
-            </div>
-            <div class="info-item">
-              <i class="fas fa-calendar-check"></i>
-              <span>Tue, Thu, Sat, Sun</span>
-            </div>
-            <div class="info-item">
-              <i class="fas fa-trophy"></i>
-              <span>Competition Prep</span>
-            </div>
-          </div>
-
-          <div class="trainer-tags">
-            <span class="tag">Power Metrics</span>
-            <span class="tag">Sprint Training</span>
-            <span class="tag">Race Strategy</span>
-          </div>
-
-          <button class="quick-book-btn" onclick="openBookingModal('Sarah Mitchell', 'Performance & Speed Coach', 'SM')">
-            <i class="fas fa-calendar-plus"></i>
-            Book Session
-          </button>
-        </div>
-      </div>
-
       <!-- Trainer 3 -->
-      <div class="trainer-card" style="--i: 2" data-category="beginner advanced endurance">
+      <div class="trainer-card" style="--i: 2" data-category="beginner">
         <div class="trainer-header">
           <div class="trainer-status">
             <span class="status-dot"></span>
@@ -1185,7 +1128,7 @@
         </div>
         <div class="trainer-body">
           <h3 class="trainer-name">Omar Al-Rashid</h3>
-          <p class="trainer-specialty">Mountain & Trail Expert</p>
+          <p class="trainer-specialty">Beginner Trainer</p>
           
           <div class="trainer-info">
             <div class="info-item">
@@ -1207,12 +1150,11 @@
           </div>
 
           <div class="trainer-tags">
-            <span class="tag">Trail Navigation</span>
-            <span class="tag">Bike Handling</span>
-            <span class="tag">Elevation Training</span>
+            <span class="tag">Basic theory</span>
+            <span class="tag">Practical Skills</span>
           </div>
 
-          <button class="quick-book-btn" onclick="openBookingModal('Omar Al-Rashid', 'Mountain & Trail Expert', 'OA')">
+          <button class="quick-book-btn" onclick="openBookingModal('Omar Al-Rashid', 'Beginner Trainer', 'OA')">
             <i class="fas fa-calendar-plus"></i>
             Book Session
           </button>
@@ -1220,7 +1162,7 @@
       </div>
 
       <!-- Trainer 4 -->
-      <div class="trainer-card" style="--i: 3" data-category="beginner">
+      <div class="trainer-card" style="--i: 3" data-category="endurance">
         <div class="trainer-header">
           <div class="trainer-status">
             <span class="status-dot"></span>
@@ -1238,7 +1180,7 @@
         </div>
         <div class="trainer-body">
           <h3 class="trainer-name">Lisa Chen</h3>
-          <p class="trainer-specialty">Technique & Form Coach</p>
+          <p class="trainer-specialty">Intermediate Trainer</p>
           
           <div class="trainer-info">
             <div class="info-item">
@@ -1260,12 +1202,11 @@
           </div>
 
           <div class="trainer-tags">
-            <span class="tag">Biomechanics</span>
-            <span class="tag">Injury Prevention</span>
-            <span class="tag">Flexibility</span>
+            <span class="tag">Turns</span>
+            <span class="tag">Maneuvers</span>
           </div>
 
-          <button class="quick-book-btn" onclick="openBookingModal('Lisa Chen', 'Technique & Form Coach', 'LC')">
+          <button class="quick-book-btn" onclick="openBookingModal('Lisa Chen', 'Intermediate Trainer', 'LC')">
             <i class="fas fa-calendar-plus"></i>
             Book Session
           </button>
@@ -1290,7 +1231,7 @@
           <div class="trainer-preview-avatar" id="previewAvatar">AH</div>
           <div class="trainer-preview-info">
             <h3 id="previewName">Ahmed Hassan</h3>
-            <p id="previewSpecialty">Endurance & Recovery Specialist</p>
+            <p id="previewSpecialty">Advanced Trainer</p>
           </div>
         </div>
 
